@@ -1,0 +1,75 @@
+{
+  "entities": {
+    "Trek": {
+      "title": "Trek",
+      "description": "A trekking trip in Da Nang",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "The title of the trek" },
+        "description": { "type": "string", "description": "A description of the trip" },
+        "date": { "type": "string", "format": "date", "description": "When the trek happened" },
+        "location": { "type": "string", "description": "Specific location in Da Nang" },
+        "coverImage": { "type": "string", "description": "URL of the main cover image" },
+        "authorId": { "type": "string", "description": "UID of the creator" },
+        "authorName": { "type": "string", "description": "Name of the creator" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "specifications": {
+          "type": "object",
+          "description": "Trek specifications",
+          "properties": {
+            "terrain": { "type": "string" },
+            "elevation": { "type": "string" },
+            "intensity": { "type": "string" },
+            "duration": { "type": "string" }
+          }
+        }
+      },
+      "required": ["title", "description", "date", "location", "authorId"]
+    },
+    "Photo": {
+      "title": "Photo",
+      "description": "A photo uploaded to a trek",
+      "type": "object",
+      "properties": {
+        "url": { "type": "string", "description": "The image URL" },
+        "caption": { "type": "string", "description": "Optional caption for the photo" },
+        "trekId": { "type": "string", "description": "ID of the parent trek" },
+        "authorId": { "type": "string", "description": "UID of the uploader" },
+        "authorName": { "type": "string", "description": "Name of the uploader" },
+        "driveFileId": { "type": "string", "description": "Original Google Drive File ID" },
+        "driveMetadata": { "type": "object", "description": "Metadata from Google Drive (EXIF, etc.)" },
+        "driveLink": { "type": "string", "description": "Link to the original file in Drive" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["url", "trekId", "authorId"]
+    },
+    "Comment": {
+      "title": "Comment",
+      "description": "A comment on a trek",
+      "type": "object",
+      "properties": {
+        "text": { "type": "string", "description": "The comment content" },
+        "trekId": { "type": "string", "description": "ID of the parent trek" },
+        "authorId": { "type": "string", "description": "UID of the commenter" },
+        "authorName": { "type": "string", "description": "Name of the commenter" },
+        "authorPhoto": { "type": "string", "description": "Avatar URL of the commenter" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["text", "trekId", "authorId"]
+    }
+  },
+  "firestore": {
+    "/treks/{trekId}": {
+      "schema": "Trek",
+      "description": "Collection of trekking trips"
+    },
+    "/treks/{trekId}/photos/{photoId}": {
+      "schema": "Photo",
+      "description": "Photos for a specific trek"
+    },
+    "/treks/{trekId}/comments/{commentId}": {
+      "schema": "Comment",
+      "description": "Comments for a specific trek"
+    }
+  }
+}

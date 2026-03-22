@@ -1,0 +1,7 @@
+{
+  "name": "Da Nang Trekking Gallery",
+  "description": "A beautiful gallery for trekking memories in Da Nang, featuring photo uploads and community comments.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
